@@ -228,7 +228,7 @@
       color: #FFF;
       text-align: center;
       font-weight: bold;
-      font-size: 24px;
+      font-size: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -399,7 +399,6 @@
 </template>
 <script>
   import throttle from 'throttle-debounce/throttle';
-  import { addClass, removeClass } from 'element-ui/src/utils/dom';
   
   export default {
     created() {
@@ -416,25 +415,12 @@
         if (calHeight < 0) calHeight = 0;
         if (calHeight > eleHeight) calHeight = eleHeight;
         this.mainImgOffset = calHeight;
-      },
-      hideIntroB() {
-        removeClass(document.body, 'el-loading-parent--hidden');
-        localStorage.setItem('KNOW_THEME', 'true');
-        this.showIntroB = false;
-      },
-      hideIntroA() {
-        this.showIntroA = false;
-        this.showIntroB = true;
       }
     },
     data() {
       return {
         lang: this.$route.meta.lang,
-        mainImgOffset: 0,
-        showIntroA: false,
-        showIntroB: false,
-        introBY: 0,
-        introBX: 0
+        mainImgOffset: 0
       };
     },
     beforeDestroy() {
@@ -442,12 +428,6 @@
     },
     mounted() {
       window.addEventListener('scroll', this.throttledHandleScroll);
-      if (localStorage.getItem('KNOW_THEME')) return;
-      const themeTab = document.querySelector('.nav-item-theme');
-      this.introBX = themeTab.offsetLeft + (themeTab.clientWidth * 0.5) - (300 / 2);
-      this.introBY = themeTab.offsetTop + 40;
-      this.showIntroA = true;
-      addClass(document.body, 'el-loading-parent--hidden');
     }
   };
 </script>
